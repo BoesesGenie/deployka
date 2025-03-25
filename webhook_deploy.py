@@ -28,9 +28,11 @@ class Webhook(BaseHTTPRequestHandler):
 
         for file_name in changed_files:
             full_file_name = os.path.join(directory + src, file_name)
+            dest_dir_name = os.path.dirname(directory + dest + file_name)
 
             if os.path.isfile(full_file_name):
-                shutil.copy(full_file_name, directory + dest)
+                os.makedirs(dest_dir_name, exist_ok=True)
+                shutil.copy(full_file_name, dest_dir_name)
             elif os.path.isfile(directory + dest + file_name):
                 os.remove(directory + dest + file_name)
 
