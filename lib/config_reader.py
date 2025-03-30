@@ -1,9 +1,7 @@
-def read_config():
-    config_path = 'config.json'
+import json
 
-    return {
-        'directory': '/home/boeses-genie/Projects/',
-        'src': 'robin-hood/',
-        'dest': 'test/',
-        'exclude_dir': 'src/test/'
-    }
+def read_config():
+    with open('config.json') as data_file:
+        config = json.load(data_file)
+
+        return config

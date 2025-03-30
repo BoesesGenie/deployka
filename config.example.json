@@ -1,5 +1,6 @@
 {
-    "directory": "/path/to/base/dir/",
+    "directory": "/path/to/base/directory/",
     "src": "path/to/source/",
-    "dest": "path/to/destination/"
+    "dest": "path/to/destination/",
+    "exclude_dir": "path/to/excluded/directory/"
 }
