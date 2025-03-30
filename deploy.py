@@ -2,12 +2,12 @@ import os
 import shutil
 from subprocess import Popen, PIPE, run
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from lib.config_reader import read_config
+
 
 class Webhook(BaseHTTPRequestHandler):
     def do_POST(self):
-        directory = '/path/to/base/dir/'
-        src = 'path/to/source/'
-        dest = 'path/to/destination/'
+        directory, src, dest = read_config().values()
 
         run(
             '/usr/bin/git pull',
@@ -25,6 +25,8 @@ class Webhook(BaseHTTPRequestHandler):
             stdout=PIPE,
             stderr=PIPE
         ).communicate()[0].strip().decode('utf-8').split('\n')
+
+        print(changed_files)
 
         for file_name in changed_files:
             full_file_name = os.path.join(directory + src, file_name)
