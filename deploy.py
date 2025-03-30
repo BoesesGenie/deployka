@@ -4,14 +4,14 @@ from subprocess import Popen, PIPE, run
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from lib.config_reader import read_config
 
-
 class Webhook(BaseHTTPRequestHandler):
     def do_POST(self):
-        directory, src, dest = read_config().values()
+        directory, src, dest, exclude_dir = read_config().values()
 
         run(
             '/usr/bin/git pull',
-            shell=True, cwd=directory + src,
+            shell=True,
+            cwd=directory + src,
             stdin=PIPE,
             stdout=PIPE,
             stderr=PIPE
@@ -26,7 +26,7 @@ class Webhook(BaseHTTPRequestHandler):
             stderr=PIPE
         ).communicate()[0].strip().decode('utf-8').split('\n')
 
-        print(changed_files)
+        changed_files = [file for file in changed_files if not file.startswith(exclude_dir)]
 
         for file_name in changed_files:
             full_file_name = os.path.join(directory + src, file_name)

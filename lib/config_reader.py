@@ -2,7 +2,8 @@ def read_config():
     config_path = 'config.json'
 
     return {
-        'directory': '/path/to/base/dir/',
-        'src': 'path/to/source/',
-        'dest': 'path/to/destination/'
+        'directory': '/home/boeses-genie/Projects/',
+        'src': 'robin-hood/',
+        'dest': 'test/',
+        'exclude_dir': 'src/test/'
     }
