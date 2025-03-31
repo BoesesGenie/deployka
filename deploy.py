@@ -38,6 +38,8 @@ class Webhook(BaseHTTPRequestHandler):
             elif os.path.isfile(directory + dest + file_name):
                 os.remove(directory + dest + file_name)
 
+        run('systemctl restart robinhood', shell=True)
+
         self.send_response(200)
         self.end_headers()
 
